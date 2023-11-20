@@ -8,7 +8,7 @@ namespace Repository
     {
         public ApplicationDbContext()
         {
-            
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -22,6 +22,7 @@ namespace Repository
         {
             base.OnModelCreating(modelBuilder);
         }
+
         public virtual DbSet<User> Users { get; set; }
     }
 }

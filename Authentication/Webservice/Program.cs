@@ -1,7 +1,9 @@
 using System.Reflection;
 using Domain;
+using Domain.AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Repository;
+using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,8 +14,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.RegisterDomainExtensions();
+builder.Services.RegisterServiceExtensions();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
-builder.Services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("WebApiDatabase")));
+builder.Services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>();
+builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.AddAutoMapper(c => c.AddProfile<AutoMapperConfiguration>(), typeof(Program));
 
 var app = builder.Build();
 

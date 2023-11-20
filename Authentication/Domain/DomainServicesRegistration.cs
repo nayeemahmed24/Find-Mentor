@@ -1,5 +1,7 @@
 ﻿using Domain.Command;
 using Domain.CommandHandler;
+using Domain.Utils;
+using Domain.Utils.Interfaces;
 using Domain.Validators.CommandValidators;
 using FluentValidation;
 using MediatR;
@@ -14,7 +16,8 @@ namespace Domain
         {
             services.AddScoped<IValidator<RegisterCommand>, RegisterCommandValidator>();
             services.AddScoped<IRequestHandler<RegisterCommand, CommandResponse>, RegisterCommandHandler>();
-
+            services.AddScoped<IPasswordHandler, PasswordHandler>();
+            services.AddScoped<ITokenHandler, TokenHandler>();
             return services;
         }
     }

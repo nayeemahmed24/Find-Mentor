@@ -10,14 +10,14 @@ namespace Model.Response
     public class CommandResponse
     {
         public CommandResponse() { }
-        public CommandResponse(object? response, bool isSuccess, string? msg) { 
+        public CommandResponse(object? response, HttpStatusCode status, string? msg) { 
             this.Result = response;
-            this.IsSuccess = isSuccess;
+            this.Status = status;
             this.Message = msg;
         }
 
         public object Result { get; set; }
-        public bool IsSuccess { get; set; }
+        public HttpStatusCode Status { get; set; }
 
         public string Message { get; set; }
     }
