@@ -6,16 +6,17 @@ namespace Repository
 {
     public class ApplicationDbContext: DbContext
     {
-        public ApplicationDbContext()
+        private readonly IConfiguration _configuration;
+        public ApplicationDbContext(IConfiguration configuration)
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            _configuration = configuration;
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // TODO: Change Path
             optionsBuilder
-                .UseNpgsql("Server=localhost;Database=dotnet;Port=5432;User ID=postgres;Password=postgres");
+                .UseNpgsql(_configuration.GetConnectionString("WebApiDatabase"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
