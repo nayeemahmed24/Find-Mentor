@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Entities
 {
@@ -20,6 +16,7 @@ namespace Model.Entities
 
         [Required]
         [EmailAddress]
+        [Index(IsUnique = true)]
         public string Email { get; set; }
 
         [Required]

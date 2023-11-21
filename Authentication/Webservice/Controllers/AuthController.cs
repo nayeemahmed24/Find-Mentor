@@ -1,6 +1,7 @@
 ﻿using Domain.Command;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace Webservice.Controllers
 {
@@ -18,11 +19,14 @@ namespace Webservice.Controllers
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterCommand command)
         {
             var res = await _mediatr.Send(command);
-            if (res.IsSuccess == false)
-            {
-                return BadRequest(res);
-            }
-            return this.Ok(res);
+            return this.StatusCode((int)res.Status, res);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginAsync([FromBody] LoginCommand command)
+        {
+            var res = await _mediatr.Send(command);
+            return this.StatusCode((int)res.Status, res);
         }
     }
 }

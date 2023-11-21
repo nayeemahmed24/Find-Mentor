@@ -10,6 +10,7 @@ namespace Domain.Validators.CommandValidators
             RuleFor(p => p.Email).NotEmpty().WithMessage("Email address is required")
                      .EmailAddress().WithMessage("A valid email is required");
             RuleFor(p => p.Password).NotEmpty().WithMessage("Password is required");
+            RuleFor(p => p.Name).NotEmpty().WithMessage("Name is required");
 
         }
     }
