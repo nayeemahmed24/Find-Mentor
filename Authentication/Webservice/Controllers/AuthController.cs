@@ -21,5 +21,12 @@ namespace Webservice.Controllers
             var res = await _mediatr.Send(command);
             return this.StatusCode((int)res.Status, res);
         }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> LoginAsync([FromBody] LoginCommand command)
+        {
+            var res = await _mediatr.Send(command);
+            return this.StatusCode((int)res.Status, res);
+        }
     }
 }

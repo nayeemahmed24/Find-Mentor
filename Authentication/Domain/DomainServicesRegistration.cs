@@ -15,9 +15,14 @@ namespace Domain
         public static IServiceCollection RegisterDomainExtensions(this IServiceCollection services)
         {
             services.AddScoped<IValidator<RegisterCommand>, RegisterCommandValidator>();
+            services.AddScoped<IValidator<LoginCommand>, LoginCommandValidator>();
+
             services.AddScoped<IRequestHandler<RegisterCommand, CommandResponse>, RegisterCommandHandler>();
+            services.AddScoped<IRequestHandler<LoginCommand, CommandResponse>, LoginCommnadHandler>();
+
             services.AddScoped<IPasswordHandler, PasswordHandler>();
             services.AddScoped<ITokenHandler, TokenHandler>();
+            
             return services;
         }
     }

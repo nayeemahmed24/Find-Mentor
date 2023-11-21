@@ -8,6 +8,7 @@ namespace Domain.Command
 {
     public class BaseCommand
     {
+        [System.Text.Json.Serialization.JsonIgnore]
         public string CorrelationId { get; set; } = Guid.NewGuid().ToString();
     }
 }

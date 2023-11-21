@@ -1,4 +1,5 @@
-﻿using Model.Entities;
+﻿using Model.Dto;
+using Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace Domain.Utils.Interfaces
 {
     public interface ITokenHandler
     {
-        public string GenerateAccessToken(User user);
+        public TokenDto GenerateAccessToken(User user);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Domain.Utils.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Model.Dto;
 using Model.Entities;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -17,7 +18,7 @@ namespace Domain.Utils
             _configuration = configuration;
         }
 
-        public string GenerateAccessToken(User user)
+        public TokenDto GenerateAccessToken(User user)
         {
 
             int minutes = Convert.ToInt32(_configuration.GetSection("AccessTokenExpiryMinutes").Value);
@@ -25,9 +26,9 @@ namespace Domain.Utils
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Expiration, DateTime.UtcNow.AddMinutes(minutes).ToString()),
+                new Claim("name", user.Name),
+                new Claim("email", user.Email),
+                new Claim("expration", DateTime.Now.AddMinutes(minutes).ToString()),
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configKey));
@@ -35,12 +36,12 @@ namespace Domain.Utils
 
             var token = new JwtSecurityToken(
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(minutes),
+                expires: DateTime.Now.AddMinutes(minutes),
                 signingCredentials: signingCredentials
             );
 
             var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
-            return tokenString;
+            return new TokenDto(tokenString, minutes * 60 * 1000);
         }
     }
 }
