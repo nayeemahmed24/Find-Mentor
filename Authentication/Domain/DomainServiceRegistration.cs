@@ -10,7 +10,7 @@ using Model.Response;
 
 namespace Domain
 {
-    public static class DomainServicesRegistration
+    public static class DomainServiceRegistration
     {
         public static IServiceCollection RegisterDomainExtensions(this IServiceCollection services)
         {
