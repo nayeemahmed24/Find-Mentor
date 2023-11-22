@@ -1,0 +1,18 @@
+﻿using Model.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Model.Dto
+{
+    public class MentorDto
+    {
+        public string Name { get; set; }
+        public string ProfileDescription { get; set; }
+        public decimal Rating { get; set; }
+        public virtual University University { get; set; }
+        public virtual ICollection<Review> Reviews { get; set; }
+    }
+}
