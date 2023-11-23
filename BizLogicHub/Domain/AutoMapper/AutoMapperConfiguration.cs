@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Domain.Query;
 using Model.Dto;
+using Model.Dto.Commands;
 using Model.Dto.Qureies;
 using Model.Entities;
 using System;
@@ -21,6 +22,11 @@ namespace Domain.AutoMapper
 
             CreateMap<Mentor, MentorDto>().ReverseMap();
             CreateMap<GetMentorListQuery, GetMentorListQueryDto>().ReverseMap();
+
+            CreateMap<Review, ReviewDto>().ReverseMap();
+            CreateMap<ReviewCommandDto, Review>().ReverseMap();
+
+
         }
     }
 }

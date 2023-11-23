@@ -1,5 +1,9 @@
-﻿using Domain.Query;
+﻿using Domain.Command;
+using Domain.CommandHandler;
+using Domain.Query;
 using Domain.QueryHandler;
+using Domain.Validators.CommandValidator;
+using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Model.Dto;
@@ -20,6 +24,9 @@ namespace Domain
             services.AddScoped<IRequestHandler<GetUniversityQuery, QueryResponse<List<UniversityDto>>>, GetUniversityHandler>();
             services.AddScoped<IRequestHandler<GetMentorListQuery, QueryResponse<List<MentorDto>>>, GetMentorListHandler>();
             services.AddScoped<IRequestHandler<GetMentorDetailsQuery, QueryResponse<MentorDto>>, GetMentorDetailsQueryHandler>();
+
+            services.AddScoped<IValidator<AddReviewCommand>, AddReviewCommandValidator>();
+            services.AddScoped<IRequestHandler<AddReviewCommand, CommandResponse>, AddReviewCommandHandler>();
             return services;
         }
     }

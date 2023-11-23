@@ -26,6 +26,7 @@ namespace Domain.Utils
 
             var claims = new List<Claim>
             {
+                new Claim("id", user.Id),
                 new Claim("name", user.Name),
                 new Claim("email", user.Email),
                 new Claim("expration", DateTime.Now.AddMinutes(minutes).ToString()),

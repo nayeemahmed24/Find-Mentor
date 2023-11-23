@@ -1,6 +1,8 @@
 ﻿using Domain.Query;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Model.Enum;
+using Webservice.Attrribute;
 
 namespace Webservice.Controllers
 {
@@ -15,6 +17,7 @@ namespace Webservice.Controllers
         }
 
         [HttpPost("find")]
+        [RoleAttribute(RoleEnum.User)]
         public async Task<IActionResult> GetUniversityList([FromBody] GetUniversityQuery query)
         {
             var res = await this._mediator.Send(query);
