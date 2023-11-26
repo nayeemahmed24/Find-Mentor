@@ -27,6 +27,10 @@ namespace Domain
 
             services.AddScoped<IValidator<AddReviewCommand>, AddReviewCommandValidator>();
             services.AddScoped<IRequestHandler<AddReviewCommand, CommandResponse>, AddReviewCommandHandler>();
+            services.AddScoped<IRequestHandler<AddUniversityCommand, CommandResponse>, AddUniversityCommandHandler>();
+            services.AddScoped<IRequestHandler<AddMentorCommand, CommandResponse>, AddMentorCommandHandler>();
+            services.AddScoped<IValidator<AddUniversityCommand>, AddUniversityCommandValidator>();
+            services.AddScoped<IValidator<AddMentorCommand>,AddMentorCommandValidator>();
             return services;
         }
     }

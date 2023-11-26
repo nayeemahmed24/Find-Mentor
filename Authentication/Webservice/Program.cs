@@ -1,9 +1,11 @@
 using System.Reflection;
 using Domain;
 using Domain.AutoMapper;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Repository;
 using Services;
+using Webservice;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,8 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.G
 builder.Services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddAutoMapper(c => c.AddProfile<AutoMapperConfiguration>(), typeof(Program));
+builder.Services.AddMassTransitExtension();
+
 
 var app = builder.Build();
 

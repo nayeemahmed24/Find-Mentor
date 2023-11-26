@@ -18,7 +18,6 @@ namespace Model.Response
 
         public CommandResponse(HttpStatusCode status, string? msg)
         {
-            this.Result = null;
             this.Status = status;
             this.Message = msg;
         }

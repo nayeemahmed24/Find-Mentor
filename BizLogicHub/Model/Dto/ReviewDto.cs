@@ -9,6 +9,7 @@ namespace Model.Dto
 {
     public class ReviewDto
     {
+        public string Id { get; set; }
         public string ReviewText { get; set; }
         public int Rating { get; set; }
     }

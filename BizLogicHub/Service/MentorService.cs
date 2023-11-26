@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Model.Dto;
+using Model.Dto.Commands;
 using Model.Dto.Qureies;
 using Model.Entities;
 using Repository;
@@ -23,6 +24,16 @@ namespace Service
             _mapper = mapper;
             
         }
+
+        public async Task<MentorDto> AddMentor(string correlationId, MentorCommandDto commandDto)
+        {
+            Mentor mentor = _mapper.Map<MentorCommandDto, Mentor>(commandDto);
+            var res = await _context.Mentors.AddAsync(mentor);
+            await _context.SaveChangesAsync();
+            MentorDto mentorDto = _mapper.Map<Mentor, MentorDto>(res.Entity);
+            return mentorDto;
+        }
+
         public async Task<List<MentorDto>> GetMentorDtos(string correlationId, GetMentorListQueryDto query)
         {
             var resQuery = _context.Mentors.AsQueryable();
@@ -41,7 +52,7 @@ namespace Service
                 resQuery = resQuery.Where(a => a.Name.Contains(query.SearchKey) || a.ProfileDescription.Contains(query.SearchKey));
             }
 
-            resQuery = resQuery.Skip(query.PageNumber * query.PageSize);
+            resQuery = resQuery.Skip((query.PageNumber - 1) * query.PageSize);
             resQuery = resQuery.Take(query.PageSize);
             resQuery = resQuery.Include(a => a.University);
 

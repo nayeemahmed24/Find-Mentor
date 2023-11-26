@@ -25,6 +25,7 @@ namespace Service
 
         public async Task<ReviewDto> AddReview(string CorrelationId, ReviewCommandDto reviewDto, string userId)
         {
+            reviewDto.UserId = userId;
             Review review = this.mapper.Map<ReviewCommandDto, Review>(reviewDto);
             var res = await dbContext.Reviews.AddAsync(review);
             await dbContext.SaveChangesAsync();

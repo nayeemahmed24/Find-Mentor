@@ -12,7 +12,7 @@ namespace Domain.Command
     {
         public string UserId { get; set; }
         public string MentorId { get; set; }
-        public string Review { get; set; }
+        public string ReviewText { get; set; }
         public int Rating { get; set; }
 
     }

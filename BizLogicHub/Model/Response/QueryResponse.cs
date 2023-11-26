@@ -14,20 +14,11 @@ namespace Model.Response
         {
             this.Result = response;
             this.Status = status;
-            if (status == HttpStatusCode.OK && response != null)
-            {
-                Type valueType = Result?.GetType();
-                if (valueType.IsArray)
-                {
-                    TotalCount = (Result as Array).Length;
-                }
-            }
             Message = message;
         }
 
         public T Result { get; set; }
         public HttpStatusCode Status { get; set; }
         public string Message { get; set; }
-        public int TotalCount { get; set; }
     }
 }
