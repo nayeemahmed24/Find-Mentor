@@ -1,4 +1,5 @@
 ﻿using Model.Dto;
+using Model.Dto.Commands;
 using Model.Dto.Qureies;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,6 @@ namespace Service.Abstractions
     {
         public Task<List<MentorDto>> GetMentorDtos(string correlationId, GetMentorListQueryDto query);
         public Task<MentorDto> GetMentorDetails(string correlationId, string mentorId);
+        public Task<MentorDto> AddMentor(string correlationId, MentorCommandDto commandDto);
     }
 }

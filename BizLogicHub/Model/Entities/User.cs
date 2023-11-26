@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Model.Entities
@@ -22,5 +23,8 @@ namespace Model.Entities
         [Required]
         public string Password { get; set; }
 
+        [Required]
+        [DefaultValue(false)]
+        public bool IsAdmin { get; set; } = false;
     }
 }

@@ -9,10 +9,11 @@ namespace Model.Dto
 {
     public class MentorDto
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public string ProfileDescription { get; set; }
         public decimal Rating { get; set; }
-        public virtual University University { get; set; }
-        public virtual ICollection<Review> Reviews { get; set; }
+        public virtual UniversityDto University { get; set; }
+        public virtual ICollection<ReviewDto> Reviews { get; set; }
     }
 }

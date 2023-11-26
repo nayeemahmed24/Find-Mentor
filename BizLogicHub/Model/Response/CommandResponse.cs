@@ -16,7 +16,13 @@ namespace Model.Response
             this.Message = msg;
         }
 
-        public object Result { get; set; }
+        public CommandResponse(HttpStatusCode status, string? msg)
+        {
+            this.Status = status;
+            this.Message = msg;
+        }
+
+        public object? Result { get; set; }
         public HttpStatusCode Status { get; set; }
 
         public string Message { get; set; }

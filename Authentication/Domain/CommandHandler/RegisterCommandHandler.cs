@@ -3,7 +3,9 @@ using Domain.Command;
 using Domain.Utils.Interfaces;
 using FluentValidation;
 using FluentValidation.Results;
+using MassTransit;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using Model.Dto;
 using Model.Entities;
 using Model.Response;
@@ -19,14 +21,16 @@ namespace Domain.CommandHandler
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
         private readonly IPasswordHandler _passwordHandler;
-        private readonly ITokenHandler _tokenHandler;
-        public RegisterCommandHandler(IValidator<RegisterCommand> validator, IUserService userService, IMapper mapper, IPasswordHandler passwordHandler, ITokenHandler tokenHandler) 
+        private readonly ISendEndpointProvider _sendEndpointProvider;
+        private readonly IConfiguration _configuration;
+        public RegisterCommandHandler(IValidator<RegisterCommand> validator, IUserService userService, IMapper mapper, IPasswordHandler passwordHandler, ISendEndpointProvider sendEndpointProvider, IConfiguration configuration) 
         {
             this._validator = validator;
             this._userService = userService;
             this._mapper = mapper;
             this._passwordHandler = passwordHandler;
-            this._tokenHandler = tokenHandler;
+            this._sendEndpointProvider = sendEndpointProvider;
+            this._configuration = configuration;
         }
 
         public async Task<CommandResponse> Handle(RegisterCommand request, CancellationToken cancellationToken)
@@ -50,7 +54,7 @@ namespace Domain.CommandHandler
                 userDto.Password = _passwordHandler.HashPassword(userDto.Password);
 
                 UserDto userDtoRes = await _userService.CreateUser(request.CorrelationId, userDto, cancellationToken);
-
+                await this.SendOnboardingConfirmationEmail(userDto.Email, userDto.Name);
                 return new CommandResponse(userDtoRes, HttpStatusCode.OK, null);
             }
             catch (Exception ex)
@@ -58,6 +62,14 @@ namespace Domain.CommandHandler
                 return new CommandResponse(null, HttpStatusCode.InternalServerError, ex.Message);
             }
             
+        }
+
+        private async Task SendOnboardingConfirmationEmail(string email, string name)
+        {
+            OnboardingConfirmationEmailCommand command = new OnboardingConfirmationEmailCommand(email, name);
+            string queueName = _configuration["QueueName"];
+            var endpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri($"queue:{queueName}"));
+            await endpoint.Send(command);
         }
     }
 }
