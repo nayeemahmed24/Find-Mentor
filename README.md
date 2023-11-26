@@ -4,7 +4,7 @@ A simple application using **.NET 6** to practice CQRS, MassTransit and Ocelot
 ## Overview
 This a simple a project to practice and showcase different technologies using .NET.
 
-Business Logic of the project revolves around a popular site (https://ratemyteachers.com/)https://ratemyteachers.com/. This helps students to suitable course and project supervisor based on the professor's review and rating.
+Business Logic of the project revolves around a popular site (https://ratemyteachers.com/). This helps students to suitable course and project supervisor based on the professor's review and rating.
 
 ## Technologies Used
 
